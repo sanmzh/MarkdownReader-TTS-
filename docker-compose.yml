@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        # ⚠️ Replace this with your actual Gemini API Key for build-time injection
+        # Or remove this line and use the Settings UI in the app to input OpenAI keys
+        - API_KEY=${GEMINI_API_KEY}
+    image: markdown-tts-reader:latest
+    container_name: markdown-tts-reader
+    ports:
+      - "3000:80"
+    environment:
+      # Optional runtime env vars
+      - NODE_ENV=production
+    restart: unless-stopped

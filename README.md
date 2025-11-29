@@ -1,20 +1,85 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Markdown TTS Reader (Markdown 朗读器)
 
-# Run and deploy your AI Studio app
+一个现代化的、本地运行的 Markdown 文本朗读工具。支持 Gemini Cloud TTS、OpenAI TTS 以及浏览器本地语音引擎。专为 Windows 风格爱好者设计，提供沉浸式的听读体验。
 
-This contains everything you need to run your app locally.
+![Screenshot](https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&w=800&q=80)
 
-View your app in AI Studio: https://ai.studio/apps/drive/13NbJk9NPv3GrHXMdmAuRNvtMTtj6AxkV
+## ✨ 核心功能
 
-## Run Locally
+- **多引擎支持**：
+  - **Google Gemini**: 高质量 AI 语音 (Kore, Puck, Fenrir 等)，支持实时变速 (0.5x - 5.0x)。
+  - **OpenAI**: 支持 Alloy, Echo, Shimmer 等标准音色。
+  - **Local Browser**: 离线使用，零延迟，零成本。
+- **Markdown 深度解析**：
+  - 完美渲染 H1-H6, 引用, 列表, 表格, 图片等。
+  - **智能清洗**：朗读时自动过滤 Markdown 符号和 URL 链接，只读纯文本。
+- **视觉同步**：
+  - 朗读时逐段高亮。
+  - 自动平滑滚动跟随。
+  - 图片展示时智能暂停。
+- **文件管理**：
+  - 左侧侧边栏文件资源管理器。
+  - 支持导入本地 `.md` 文件或整个文件夹。
+- **双模式视图**：
+  - **编辑模式**：左侧实时编辑，右侧预览。
+  - **阅读模式**：居中沉浸式排版。
 
-**Prerequisites:**  Node.js
+## 🛠️ 快速部署
 
+### 方法一：Docker 一键部署 (推荐)
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+1.  **设置 API Key**
+    
+    打开 `docker-compose.yml`，或者在构建时传入变量。如果不想在构建时注入，也可以在运行应用后，在界面的“设置”中输入 OpenAI Key (Gemini Key 目前需环境变量注入)。
+
+    ```bash
+    # Linux/Mac
+    export GEMINI_API_KEY="your_api_key_here"
+    
+    # Windows PowerShell
+    $env:GEMINI_API_KEY="your_api_key_here"
+    ```
+
+2.  **启动服务**
+
+    ```bash
+    docker-compose up --build -d
+    ```
+
+3.  **访问应用**
+    
+    打开浏览器访问: [http://localhost:3000](http://localhost:3000)
+
+### 方法二：本地开发环境运行
+
+你需要安装 [Node.js](https://nodejs.org/) (v16+).
+
+1.  **安装依赖**
+
+    ```bash
+    npm install
+    ```
+
+2.  **配置环境**
+    
+    创建 `.env` 文件：
+    ```env
+    API_KEY=your_gemini_api_key_here
+    ```
+
+3.  **启动开发服务器**
+
+    ```bash
+    npm run dev
+    ```
+
+## 🏗️ 项目结构
+
+- `src/services/gemini.ts`: 核心 TTS 逻辑，封装了 Google GenAI SDK、OpenAI Fetch 和 Web Audio API。
+- `src/App.tsx`: 主应用逻辑，包含 Markdown 解析器 (`parseMarkdown`) 和播放序列控制器。
+- `src/types.ts`: TypeScript 类型定义。
+- `Dockerfile`: 多阶段构建脚本 (Node Build -> Nginx Serve)。
+
+## 📝 License
+
+MIT License. 欢迎 Fork 和 PR！
