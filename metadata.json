@@ -1,0 +1,5 @@
+{
+  "name": "Markdown 朗读器 (TTS)",
+  "description": "一个基于 Windows 风格的本地 Markdown 文本朗读应用。利用 Gemini 2.5 Flash TTS 模型，将 Markdown 文本转换为自然流畅的语音。支持多种声音选择和实时预览。",
+  "requestFramePermissions": []
+}
